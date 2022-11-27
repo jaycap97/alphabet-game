@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Dashboard from '@/views/home/Dashboard.vue'
+import Scoreboard from '@/views/home/Scoreboard.vue'
+import Alphabet from '@/views/home/Alphabet.vue'
 import Portal from '@/views/auth/Portal.vue'
 import Layout from '@/layouts/Layout.vue'
 
@@ -10,9 +11,14 @@ const routes = [
     component: Layout,
     children: [
       {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: Dashboard,
+        path: 'scoreboard',
+        name: 'Scoreboard',
+        component: Scoreboard,
+      },
+      {
+        path: 'alphabet',
+        name: 'Alphabet',
+        component: Alphabet,
       },
     ],
   },

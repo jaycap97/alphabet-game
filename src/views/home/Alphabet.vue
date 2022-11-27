@@ -1,12 +1,9 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
-      <v-img
-        contain
-        height="300"
-        src="src/assets/logo.svg"
-      />
-      <router-link to="/scoreboard">Scoreboard</router-link>
+      <h1 class="text-h2 font-weight-bold">Alphabet</h1>
+
+      <router-link to="/portal">Portal</router-link>
     </v-responsive>
   </v-container>
 </template>
