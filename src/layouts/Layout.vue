@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar>
-
-    </v-app-bar>
+    <Header />
     <v-main>
       <router-view />
     </v-main>
@@ -10,6 +8,5 @@
 </template>
 
 <script setup lang="ts">
-
-
+  import Header from './Header.vue';
 </script>
