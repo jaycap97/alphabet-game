@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
-      <h1 class="text-h2 font-weight-bold">Alphabet</h1>
+      <h1 class="text-h2 font-weight-bold">Ascending</h1>
 
       <router-link to="/portal">Portal</router-link>
     </v-responsive>

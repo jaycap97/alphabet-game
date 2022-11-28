@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Scoreboard from '@/views/home/Scoreboard.vue'
-import Alphabet from '@/views/home/Alphabet.vue'
+import Ascending from '@/views/home/Ascending.vue'
+import Descending from '@/views/home/Descending.vue'
 import Portal from '@/views/auth/Portal.vue'
 import Layout from '@/layouts/Layout.vue'
 
@@ -16,9 +17,14 @@ const routes = [
         component: Scoreboard,
       },
       {
-        path: 'alphabet',
-        name: 'Alphabet',
-        component: Alphabet,
+        path: 'ascending',
+        name: 'Ascending',
+        component: Ascending,
+      },
+      {
+        path: 'descending',
+        name: 'Descending',
+        component: Descending,
       },
     ],
   },
