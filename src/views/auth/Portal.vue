@@ -6,7 +6,9 @@
         height="300"
         src="src/assets/logo.svg"
       />
-      <h1>Portal</h1>
+      <v-text-field
+        variant="outlined"
+      ></v-text-field>
       <router-link to="/scoreboard">Scoreboard</router-link>
     </v-responsive>
   </v-container>

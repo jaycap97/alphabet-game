@@ -8,6 +8,7 @@ import Layout from '@/layouts/Layout.vue'
 const routes = [
   {
     path: '/',
+    redirect: '/scoreboard',
     name: 'Layout',
     component: Layout,
     children: [
