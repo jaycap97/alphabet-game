@@ -6,3 +6,9 @@
 
 <script setup lang="ts">
 </script>
+
+<style>
+  ::-webkit-scrollbar {
+    display: none;
+  }
+</style>
