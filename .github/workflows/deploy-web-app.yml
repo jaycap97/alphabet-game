@@ -60,18 +60,18 @@ jobs:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: ${{ secrets.VUE_APP_FB_PROJECT_ID }}
+          PROJECT_ID: ${{ secrets.VITE_APP_FB_PROJECT_ID }}
       - name: Discord Notification
         if: ${{ success() }}
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: Web Application has been successfully deployed in PRODUCTION Environment
+          args: Web Application has been successfully deployed
       - name: Discord Notification
         if: ${{ failure() }}
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: Web Application has failed to be deployed in PRODUCTION Environment
+          args: Web Application has failed to be deployed
