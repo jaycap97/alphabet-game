@@ -1,12 +1,15 @@
 import App from './App.vue'
 import router from './router'
-
 import { createApp } from 'vue'
-
 import { registerPlugins } from '@/plugins'
+import { auth } from '@/fb'
 
-const app = createApp(App)
-
-registerPlugins(app)
-
-app.use(router).mount('#app')
+let app:any
+auth.onAuthStateChanged(() => {
+  if(!app) {
+    app = createApp(App)
+    registerPlugins(app)
+    auth.onAuthStateChanged
+    app.use(router).mount('#app')
+  }
+})
