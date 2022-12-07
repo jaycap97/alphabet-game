@@ -8,16 +8,32 @@
         variant="outlined"
         hide-details
       ></v-text-field>
+      <v-btn
+        @click="onReset()"
+        class="ml-4"
+        size="x-large"
+      >Reset</v-btn>
     </v-row>
     <v-row class="mb-8" justify="center" dense>
       <div class="text-h5">Time: 0.000s</div>
     </v-row>
     <v-row justify="center" dense>
-      <AppTimeline />
+      <!-- <AppTimeline /> -->
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
   import AppTimeline from '@/components/AppTimeline.vue'
+  import { ref } from 'vue'
+
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'
+  const field = ref('')
+  const buff = ref('')
+  const time = ref(0)
+
+  const onReset = () => {
+    field.value = ''
+    buff.value = ''
+  }
 </script>
