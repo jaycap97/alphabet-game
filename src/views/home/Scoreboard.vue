@@ -3,6 +3,12 @@
     <v-row class="mb-5" justify="center" dense>
       <div class="text-h2 font-weight-bold">Scoreboard</div>
     </v-row>
+    <v-row class="mb-1" justify="center" dense>
+      <div class="text-h5">Name: Jascha</div>
+    </v-row>
+    <v-row class="mb-8" justify="center" dense>
+      <div class="text-h6">Room: 2021</div>
+    </v-row>
     <v-row justify="center" dense>
       <v-card 
         class="rounded-lg"
