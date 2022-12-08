@@ -1,22 +1,35 @@
 <template>
   <v-app>
-    <Header />
+    <Header
+      @exit="toggleExitDialog = true"
+    />
     <v-main>
       <router-view />
     </v-main>
 
     <!-- Enter a name dialog -->
     <AppDialog
-      :toggle="toggleDialog"
+      :toggle="toggleNameDialog"
       :title="'Name'"
       :width="'300'"
       :actions="['cancel', 'enter']"
-      @cancel="toggleDialog = false"
+      @cancel="toggleNameDialog = false"
     >
       <v-text-field
         variant="outlined"
         hide-details
       ></v-text-field>
+    </AppDialog>
+
+    <!-- Exit dialog -->
+    <AppDialog
+      :toggle="toggleExitDialog"
+      :title="'Exit'"
+      :width="'300'"
+      :actions="['cancel', 'proceed']"
+      @cancel="toggleExitDialog = false"
+    >
+      <p>You are about the exit the room.</p>
     </AppDialog>
   </v-app>
 </template>
@@ -26,5 +39,6 @@
   import AppDialog from '@/components/AppDialog.vue'
   import { ref } from 'vue';
 
-  const toggleDialog = ref(true)
+  const toggleNameDialog = ref(false)
+  const toggleExitDialog = ref(false)
 </script>

@@ -14,7 +14,7 @@
       <v-icon>mdi-sort-alphabetical-descending</v-icon>
     </v-btn>
     <v-spacer />
-    <v-btn dark icon @click="" class="mx-1">
+    <v-btn dark icon @click="$emit('exit')" class="mx-1">
       <v-icon>mdi-logout-variant</v-icon>
     </v-btn>
   </v-app-bar>
