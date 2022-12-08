@@ -33,6 +33,8 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
   import AppTimeline from '@/components/AppTimeline.vue'
+  import { useStore } from '@/store'
+  import { ActionTypes, MutationTypes } from '@/store/modules/i_users';
 
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'
   const field = ref('')
@@ -41,6 +43,8 @@
   const time = ref(0)
   const isTimerEnabled = ref<boolean>(false)
   const laps = ref<number[]>([])
+  const store = useStore()
+  const az = ref(store.state.az)
 
   const reset = () => {
     field.value = ''
@@ -49,6 +53,20 @@
     time.value = 0
     isTimerEnabled.value = false
     laps.value = []
+  }
+
+  const addTime = () => {
+    const startLap = laps.value[0]
+    const endLap = laps.value.slice(-1)[0]
+    const startAz = az.value[0]
+    const endAz = az.value.slice(-1)[0]
+    if((endLap-startLap) < (endAz - startAz)){
+      store.commit(MutationTypes.SET_AZ, laps.value)
+      store.dispatch(ActionTypes.UPDATE_CURRENT)
+    } else if (az.value.length === 0) {
+      store.commit(MutationTypes.SET_AZ, laps.value)
+      store.dispatch(ActionTypes.UPDATE_CURRENT)
+    }
   }
 
   watch(buff, (newVal) => {
@@ -63,6 +81,10 @@
         laps.value.push(Date.now())
       }
     }
+  })
+
+  watch(field, () => {
+    if(field.value === alphabet && laps.value.length === alphabet.length) addTime()
   })
 
   watch(time, () => {
