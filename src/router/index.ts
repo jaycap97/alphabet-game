@@ -4,7 +4,10 @@ import Ascending from '@/views/home/Ascending.vue'
 import Descending from '@/views/home/Descending.vue'
 import Portal from '@/views/auth/Portal.vue'
 import Layout from '@/layouts/Layout.vue'
+import { useStore } from '@/store'
+import { nextTick } from 'process'
 
+const store = useStore()
 const routes = [
   {
     path: '/',
@@ -41,8 +44,14 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach(() => {
-  
+router.beforeEach(async (to, from, next) => {
+  if (store.state.room === '' && to.name !== 'Portal') {
+    next({ name: 'Portal' })
+  } else if (store.state.room !== '' && to.name === 'Portal') {
+    next({ name: 'Scoreboard' })
+  } else {
+    next()
+  }
 })
 
 export default router
