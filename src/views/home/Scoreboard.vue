@@ -4,10 +4,10 @@
       <div class="text-h2 font-weight-bold">Scoreboard</div>
     </v-row>
     <v-row class="mb-1" justify="center" dense>
-      <div class="text-h5">Name: Jascha</div>
+      <div class="text-h5">Name: {{ state.name }}</div>
     </v-row>
     <v-row class="mb-8" justify="center" dense>
-      <div class="text-h6">Room: 2021</div>
+      <div class="text-h6">Room: {{ state.room }}</div>
     </v-row>
     <v-row justify="center" dense>
       <v-card 
@@ -31,12 +31,12 @@
           </thead>
           <tbody>
             <tr
-              v-for="item in desserts"
-              :key="item.name"
+              v-for="user in store.state.users"
+              :key="user.name"
             >
-              <td>{{ item.name }}</td>
-              <td>{{ item.az }}</td>
-              <td>{{ item.za }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.az.length !== 0? `${getTime(user.az).toFixed(3)}s` : '' }}</td>
+              <td>{{ user.za.length !== 0? `${getTime(user.za).toFixed(3)}s` : '' }}</td>
             </tr>
           </tbody>
         </v-table>
@@ -46,76 +46,20 @@
 </template>
 
 <script setup lang="ts">
-  const desserts = [
-    {
-      name: 'Frozen Yogurt',
-      az: 159,
-      za: 159,
-    },
-    {
-      name: 'Ice cream sandwich',
-      az: 237,
-      za: 237,
-    },
-    {
-      name: 'Eclair',
-      az: 262,
-      za: 262,
-    },
-    {
-      name: 'Cupcake',
-      az: 305,
-      za: 305,
-    },
-    {
-      name: 'Gingerbread',
-      az: 356,
-      za: 356,
-    },
-    {
-      name: 'Jelly bean',
-      az: 375,
-      za: 375,
-    },
-    {
-      name: 'Lollipop',
-      az: 392,
-      za: 392,
-    },
-    {
-      name: 'Frozen Yogurt',
-      az: 159,
-      za: 159,
-    },
-    {
-      name: 'Ice cream sandwich',
-      az: 237,
-      za: 237,
-    },
-    {
-      name: 'Eclair',
-      az: 262,
-      za: 262,
-    },
-    {
-      name: 'Cupcake',
-      az: 305,
-      za: 305,
-    },
-    {
-      name: 'Gingerbread',
-      az: 356,
-      za: 356,
-    },
-    {
-      name: 'Jelly bean',
-      az: 375,
-      za: 375,
-    },
-    {
-      name: 'Lollipop',
-      az: 392,
-      za: 392,
-    },
-  ]
+  import { useStore } from '@/store'
+  import { ActionTypes } from '@/store/modules/i_users';
+  import { reactive, ref, watch } from 'vue'
+
+  const store = useStore()
+  const state = ref(store.state)
+  const users = reactive(store.state.users)
+  
+  const getTime = (list: number[]) => (list.slice(-1)[0]-list[0])/1000
+  
+  watch(users, () => {
+    store.dispatch(ActionTypes.LIST_USERS)
+    console.log(users)
+  },{
+    immediate: true
+  })
 </script>
