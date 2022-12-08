@@ -4,9 +4,11 @@ import store from './store'
 import { createApp } from 'vue'
 import { registerPlugins } from '@/plugins'
 import { auth } from '@/fb'
+import { onAuthStateChanged } from "firebase/auth";
+
 
 let app:any
-auth.onAuthStateChanged(() => {
+onAuthStateChanged(auth, () => {
   if(!app) {
     app = createApp(App)
     registerPlugins(app)
