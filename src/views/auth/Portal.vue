@@ -7,8 +7,7 @@
         <v-container>
           <v-row class="mb-8">
             <v-text-field
-              :model-value="state.room"
-              @update:model-value="(val: string) => updateRoom(val)"
+              v-model="tempRoom"
               :rules="[
                 (v) => !!v || '',
                 (v) => v.length == 4 || ''
@@ -20,7 +19,10 @@
             ></v-text-field>
           </v-row>
           <v-row class="mb-8" justify="center">
-            <v-btn :disabled="!state.room || state.room.length != 4" to="/scoreboard">
+            <v-btn
+              :disabled="!tempRoom || tempRoom.length != 4" 
+              @click="joinRoom()"
+            >
               Join a room
             </v-btn>
           </v-row>
@@ -37,10 +39,11 @@
   import { ref, watch, onMounted } from 'vue'
   import { useStore } from '@/store'
   import { ActionTypes, MutationTypes } from '@/store/modules/i_users';
+  import router from '@/router'
 
   const store = useStore()
-  const state = ref(store.state)
   const uid = ref(store.state.uid)
+  const tempRoom = ref('')
 
   watch(uid, () => {
     onAuthStateChanged(auth, (user) => {
@@ -54,7 +57,11 @@
     immediate: true
   })
 
-  const updateRoom = (val: string) => store.commit(MutationTypes.SET_ROOM, val)
+  const joinRoom = () => {
+    store.commit(MutationTypes.SET_ROOM, tempRoom.value)
+    store.dispatch(ActionTypes.UPDATE_CURRENT)
+    router.push({ name: 'Scoreboard' })
+  }
 
   onMounted(() => {
     try {
