@@ -4,7 +4,7 @@
       @exit="toggleExitDialog = true"
     />
     <v-main>
-      <router-view />
+      <router-view @edit-name="toggleNameDialog = true"/>
     </v-main>
 
     <!-- Enter a name dialog -->
