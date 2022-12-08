@@ -4,7 +4,9 @@
       <div class="text-h2 font-weight-bold">Scoreboard</div>
     </v-row>
     <v-row class="mb-1" justify="center" dense>
-      <div class="text-h5">Name: {{ state.name }}</div>
+      <div class="text-h5 mr-2">Name: {{ state.name }}
+        <v-icon size="x-small" @click="$emit('editName')">mdi-pencil</v-icon>
+      </div>
     </v-row>
     <v-row class="mb-8" justify="center" dense>
       <div class="text-h6">Room: {{ state.room }}</div>
