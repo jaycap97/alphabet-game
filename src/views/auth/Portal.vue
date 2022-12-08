@@ -6,29 +6,24 @@
       <v-card width="600" variant="flat">
         <v-container>
           <v-row class="mb-8">
-          <v-text-field
-            v-model="room_number"
-            :rules="[
-              (v) => !!v || '',
-              (v) => v.length == 4 || ''
-            ]"
-            class="my-3"
-            label="Room Number"
-            variant="outlined"
-            hide-details
-          ></v-text-field>
-        </v-row>
-        <v-row class="mb-8" justify="center">
-          <v-btn :disabled="!room_number || room_number.length != 4" to="/scoreboard">
-            Join a room
-          </v-btn>
-        </v-row>
-        <v-divider class="mb-8" />
-        <v-row class="mb-8" justify="center">
-          <v-btn to="/scoreboard">
-            Create a room
-          </v-btn>
-        </v-row>
+            <v-text-field
+              :model-value="state.room"
+              @update:model-value="(val: string) => updateRoom(val)"
+              :rules="[
+                (v) => !!v || '',
+                (v) => v.length == 4 || ''
+              ]"
+              class="my-3"
+              label="Room Number"
+              variant="outlined"
+              hide-details
+            ></v-text-field>
+          </v-row>
+          <v-row class="mb-8" justify="center">
+            <v-btn :disabled="!state.room || state.room.length != 4" to="/scoreboard">
+              Join a room
+            </v-btn>
+          </v-row>
         </v-container>
       </v-card>
     </v-row>
@@ -38,15 +33,32 @@
 
 <script setup lang="ts">
   import { auth } from '@/fb'
-  import { signInAnonymously } from "firebase/auth"
-  import { ref, onMounted } from 'vue'
+  import { signInAnonymously, onAuthStateChanged } from "firebase/auth"
+  import { ref, watch, onMounted } from 'vue'
+  import { useStore } from '@/store'
+  import { ActionTypes, MutationTypes } from '@/store/modules/i_users';
 
-  const room_number = ref('')
+  const store = useStore()
+  const state = ref(store.state)
+  const uid = ref(store.state.uid)
+
+  watch(uid, () => {
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        store.commit(MutationTypes.SET_UID, user.uid)
+        store.dispatch(ActionTypes.LISTEN_CURRENT)
+      }
+    })
+  },
+  {
+    immediate: true
+  })
+
+  const updateRoom = (val: string) => store.commit(MutationTypes.SET_ROOM, val)
 
   onMounted(() => {
     try {
       signInAnonymously(auth)
-      console.log(auth.currentUser)
     } catch (err) {
       console.log(err)
     }
