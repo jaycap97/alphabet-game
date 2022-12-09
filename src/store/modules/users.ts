@@ -74,7 +74,6 @@ const actions: ActionTree<State, State> & Actions = {
                 users.push(user.data())
             })
             commit(MutationTypes.SET_USERS, users)
-            console.log(users)
           })
         )
       }      
