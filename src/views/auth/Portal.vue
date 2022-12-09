@@ -3,7 +3,11 @@
     <v-responsive class="px-5 d-flex align-center text-center fill-height">
     <div class="mb-10 text-h2 font-weight-bold">Alphabet Game</div>
     <v-row justify="center">
-      <v-card width="600" variant="flat">
+      <v-card 
+        width="600"
+        variant="flat"
+        color="secondary"
+      >
         <v-container>
           <v-row class="mb-8">
             <v-text-field
