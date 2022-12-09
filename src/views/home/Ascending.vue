@@ -47,12 +47,14 @@
   const az = ref(store.state.az)
 
   const reset = () => {
-    field.value = ''
-    buff.value = ''
-    start.value = 0
-    time.value = 0
     isTimerEnabled.value = false
-    laps.value = []
+    setTimeout(() => {
+      field.value = ''
+      buff.value = ''
+      start.value = 0
+      time.value = 0
+      laps.value = []
+    }, 100)
   }
 
   const addTime = () => {
