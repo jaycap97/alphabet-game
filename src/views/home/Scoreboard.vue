@@ -25,15 +25,24 @@
               </th>
               <th class="text-center">
                 A to Z
+                <v-icon size="x-small" @click="toggleAzSort()">mdi-arrow-down</v-icon>
               </th>
               <th class="text-center">
                 Z to A
+                <v-icon size="x-small" @click="toggleZaSort()">mdi-arrow-down</v-icon>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="user in store.state.users"
+              v-for="user in (!azSort && !zaSort)
+                ? store.state.users
+                : (azSort && !zaSort)
+                ? store.state.users.sort((a, b) => getTime(a.az) - getTime(b.az))
+                : (!azSort && zaSort)
+                ? store.state.users.sort((a, b) => getTime(a.za) - getTime(b.za))
+                : store.state.users
+              "
               :key="user.name"
             >
               <td>{{ user.name }}</td>
@@ -55,12 +64,29 @@
   const store = useStore()
   const state = ref(store.state)
   const users = reactive(store.state.users)
+  const azSort = ref(false)
+  const zaSort = ref(false)
+
+  const toggleAzSort = () => {
+    azSort.value = true
+    zaSort.value = false
+  }
+
+  const toggleZaSort = () => {
+    azSort.value = false
+    zaSort.value = true
+  }
   
-  const getTime = (list: number[]) => (list.slice(-1)[0]-list[0])/1000
+  const getTime = (list: number[]) => {
+    if(list.length !== 0){
+      return (list.slice(-1)[0]-list[0])/1000
+    } else {
+      return 99
+    }
+  }
   
   watch(users, () => {
     store.dispatch(ActionTypes.LIST_USERS)
-    console.log(users)
   },{
     immediate: true
   })
